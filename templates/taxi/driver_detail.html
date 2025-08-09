@@ -1,22 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Driver details</h1>
-  <p>Username: {{ driver.username }}</p>
-  <p>Full name: {{ driver.first_name }}{{ driver.last_name }}</p>
-  <p>Email: {{ driver.email }}</p>
-  <p>License Number: {{ driver.license_number }}</p>
+<div class="container">
+  <h1 class="mb-4">👨‍✈️ Driver Details</h1>
 
-  {% if cars.all %}
-    <p>Driver cars:</p>
-    <ul>
-    {% for car in cars.all %}
-      <li>
-        <a href="{% url 'taxi:car_detail' car.id %}">{{ car.model }} - {{ car.manufacturer.name }}</a>
-      </li>
-    {% endfor %}
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h4 class="card-title">{{ driver.username }}</h4>
+      <p><strong>Full name:</strong> {{ driver.first_name }} {{ driver.last_name }}</p>
+      <p><strong>Email:</strong> {{ driver.email }}</p>
+      <p><strong>License Number:</strong> {{ driver.license_number }}</p>
+    </div>
+  </div>
+
+  {% if cars %}
+    <h5>🚗 Driver's Cars:</h5>
+    <ul class="list-group mb-3">
+      {% for car in cars %}
+        <li class="list-group-item">
+          <a href="{% url 'taxi:car_detail' car.id %}" class="text-decoration-none">
+            {{ car.model }}
+          </a> — {{ car.manufacturer.name }}
+        </li>
+      {% endfor %}
     </ul>
   {% else %}
-    <p>No cars available at the moment.</p>
+    <div class="alert alert-warning">This driver has no cars assigned.</div>
   {% endif %}
+</div>
 {% endblock %}

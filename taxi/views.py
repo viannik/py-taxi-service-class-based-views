@@ -52,7 +52,7 @@ class CarDetailView(DetailView):
         """Add manufacturer to the context."""
         context = super().get_context_data(**kwargs)
         context["manufacturer"] = self.object.manufacturer
-        context["drivers"] = self.object.drivers
+        context["drivers"] = self.object.drivers.all()
         return context
 
 
@@ -77,5 +77,5 @@ class DriverDetailView(DetailView):
     def get_context_data(self, **kwargs):
         """Add car to the context."""
         context = super().get_context_data(**kwargs)
-        context["cars"] = self.object.cars
+        context["cars"] = self.object.cars.all()
         return context
