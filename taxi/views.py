@@ -21,7 +21,7 @@ class ManufacturerListView(ListView):
 
     model = Manufacturer
     template_name = "taxi/manufacturer_list.html"
-    context_object_name = "manufacturers"
+    context_object_name = "manufacturer_list"
     paginate_by = 5
     queryset = Manufacturer.objects.all()
     ordering = ["name"]
@@ -32,7 +32,7 @@ class CarListView(ListView):
 
     model = Car
     template_name = "taxi/car_list.html"
-    context_object_name = "cars"
+    context_object_name = "car_list"
     paginate_by = 5
     queryset = Car.objects.select_related("manufacturer")
     ordering = ["model"]
@@ -51,8 +51,8 @@ class CarDetailView(DetailView):
     def get_context_data(self, **kwargs):
         """Add manufacturer to the context."""
         context = super().get_context_data(**kwargs)
-        context["manufacturer"] = self.object.manufacturer
-        context["drivers"] = self.object.drivers.all()
+        context["manufacturer_list"] = self.object.manufacturer
+        context["driver_list"] = self.object.drivers.all()
         return context
 
 
@@ -61,7 +61,7 @@ class DriverListView(ListView):
 
     model = Driver
     template_name = "taxi/driver_list.html"
-    context_object_name = "drivers"
+    context_object_name = "driver_list"
     paginate_by = 5
     queryset = Driver.objects.prefetch_related("cars")
     ordering = ["license_number"]
@@ -77,5 +77,5 @@ class DriverDetailView(DetailView):
     def get_context_data(self, **kwargs):
         """Add car to the context."""
         context = super().get_context_data(**kwargs)
-        context["cars"] = self.object.cars.all()
+        context["car_list"] = self.object.cars.all()
         return context

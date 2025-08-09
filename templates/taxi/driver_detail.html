@@ -13,12 +13,12 @@
     </div>
   </div>
 
-  {% if cars %}
+  {% if car_list %}
     <h5>🚗 Driver's Cars:</h5>
     <ul class="list-group mb-3">
-      {% for car in cars %}
+      {% for car in car_list %}
         <li class="list-group-item">
-          <a href="{% url 'taxi:car_detail' car.id %}" class="text-decoration-none">
+          <a href="{% url 'taxi:car-detail' car.id %}" class="text-decoration-none">
             {{ car.model }}
           </a> — {{ car.manufacturer.name }}
         </li>
